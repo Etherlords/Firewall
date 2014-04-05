@@ -26,6 +26,7 @@ package demo
 		
 		private function onFrame(e:Event):void 
 		{
+			return;
 			draw();
 		}
 		

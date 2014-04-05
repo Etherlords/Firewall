@@ -6,13 +6,12 @@
     <movie input="" />
     <movie path="bin\Firewall.swf" />
     <movie fps="30" />
-    <movie width="1024" />
-    <movie height="768" />
+    <movie width="1280" />
+    <movie height="960" />
     <movie version="3" />
-    <movie minorVersion="7" />
+    <movie minorVersion="9" />
     <movie platform="AIR" />
     <movie background="#000000" />
-    <movie preferredSDK="AIR 3.7.0;3.7.0;" />
   </output>
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
@@ -21,6 +20,7 @@
     <class path="..\share-utils\src" />
     <class path="..\share-ioc\src" />
     <class path="..\share-core\src" />
+    <class path="src\componentConstructor" />
   </classpaths>
   <!-- Build options -->
   <build>

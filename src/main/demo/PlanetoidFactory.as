@@ -13,6 +13,9 @@ package demo
 	import core.fileSystem.FsFile;
 	import core.fileSystem.IFS;
 	import core.fileSystem.LocalFileSystem;
+	import flash.display.BitmapData;
+	import flash.display.BitmapDataChannel;
+	import flash.geom.Point;
 
 	import flash.display.BlendMode;
 	/**
@@ -42,7 +45,7 @@ package demo
 		private var texturePath:String;
 
 		
-		public function build(texturePath:String, rot:Number, radius:Number, orbitRadius:Number):Actor
+		public function build(texturePath:String, rot:Number, radius:Number, orbitRadius:Number, atmosphereSize:Number, isHaveClods:Boolean = false, isHaveAtmosphere:Boolean = true, atmosphereColor:uint = 0x1671cc):Actor
 		{
 			this.texturePath = texturePath;
 			
@@ -52,6 +55,10 @@ package demo
 			planetModel.rotationSpeed = rot;
 			planetModel.radius = radius;
 			planetModel.orbitRadius = orbitRadius;
+			planetModel.isHaveAtmosphere = isHaveAtmosphere;
+			planetModel.atmosphereColor = atmosphereColor;
+			planetModel.atmosphereSize = atmosphereSize;
+			planetModel.ishaveClouds = isHaveClods;
 			
 			var planetView:PlanetViewController = new PlanetViewController(planetModel);
 			var actor:Actor = new Actor(planetView);
@@ -60,20 +67,29 @@ package demo
 			
 			planetView.body.material = planetMaterial;
 			
+			if(planetModel.ishaveClouds)
+				planetView.clouds.material = cloudMaterial;
+			
+			if (planetView.atmosphere)
+				planetView.atmosphere.material.lightPicker = lights;
+			
 			return actor;
 		}
 		
 		private function buildMaterials():void
 		{
 			var diffuse:BitmapTexture = new BitmapTexture(vfs.getFile(planetsPath + texturePath + '/diffuse.jpg').content);
-			cloudMaterial;
+			
 			planetMaterial = new TextureMaterial(diffuse);
 			
 			planetMaterial.specularMethod = new PhongSpecularMethod();
 			
-			planetMaterial.addMethod(fog);
+			if (fog)
+				planetMaterial.addMethod(fog);
+				
 			planetMaterial.specular = 0.5
-			planetMaterial.gloss = 80;
+			planetMaterial.gloss = 50;
+			planetMaterial.ambient = 1;
 			
 			var normalFile:FsFile = vfs.getFile(planetsPath + texturePath + '/normal.jpg')
 			if(normalFile)
@@ -87,14 +103,27 @@ package demo
 				
 			var cloudFiled:FsFile = vfs.getFile(planetsPath + texturePath + '/clouds.jpg')
 			
+			var ambientFile:FsFile = vfs.getFile(planetsPath + texturePath + '/ambient.jpg')
+			
+			if (ambientFile)
+				planetMaterial.ambientTexture = new BitmapTexture(ambientFile.content);
+			
 			if (cloudFiled)
 			{
-				cloudMaterial = new TextureMaterial(new BitmapTexture(cloudFiled.content));
+				cloudMaterial = new TextureMaterial(new BitmapTexture(blackToTransparent(cloudFiled.content)));
 				cloudMaterial.alphaBlending = true;
+				cloudMaterial.specular = 0;
+				cloudMaterial.alpha = 0.2;
 				cloudMaterial.blendMode = BlendMode.ADD;
 			}
 				
 			planetMaterial.lightPicker = lights;
+		}
+		
+		private function blackToTransparent( original:BitmapData ):BitmapData {
+			var bmd:BitmapData = new BitmapData( original.width, original.height, true, 0xFFFFFFFF );
+			bmd.copyChannel( original, bmd.rect, new Point(), BitmapDataChannel.RED, BitmapDataChannel.ALPHA );
+			return bmd;
 		}
 		
 	}

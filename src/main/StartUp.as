@@ -1,21 +1,34 @@
 package  
 {
-	import away3d.core.base.Object3D;
-	import core.utils.dump.dumpByteArray;
+	import core.fileSystem.Directory;
+	import core.fileSystem.FsFile;
+	import core.fileSystem.LocalFileSystem;
+	import flash.display.BitmapData;
+	import flash.display.CapsStyle;
 	import flash.display.Sprite;
+	import flash.display.StageQuality;
 	import flash.events.Event;
-	import flash.utils.ByteArray;
-	import objectState.ObjectState;
-	
+	import flash.geom.Point;
+	import flash.geom.Rectangle;
+	import ui.LineDrawer;
+	import ui.style.StylesCollector;
+
 	public class StartUp extends Sprite 
 	{
 		private static const classRef:ClassReference = new ClassReference();
+		private static const defaultUI:DefaultUI = new DefaultUI();
 		
 		public function StartUp() 
 		{
 			super();
 			
-			var objState:ObjectState = new ObjectState();
+			stage.quality = StageQuality.BEST;
+			
+
+			
+		//	return;
+			
+			/*var objState:ObjectState = new ObjectState();
 			var o:Object3D = new Object3D();
 			o.name = 'test';
 			var ba:ByteArray = objState.writeObject(o, new < String > ["rotationX", "rotationY", "rotationZ", 'name']);
@@ -25,6 +38,8 @@ package
 		
 			
 			return;
+			*/
+			
 			
 			if (stage)
 				initialize();
@@ -81,10 +96,30 @@ package
 			stage.align = 'TL';
 			stage.scaleMode = 'noScale';
 			
+			var defaultVfs:LocalFileSystem = new LocalFileSystem();
+			var defaultDir:Directory = new Directory();
+			
+			defaultVfs.directoriesList = defaultDir;
+			
+			defaultDir.name = '/';
+			defaultDir.path = '/'
+			
+			var progress:FsFile = new FsFile();
+			progress.content = new DefaultUI.progressProgress().bitmapData;
+			var background:FsFile = new FsFile();
+			background.content = new DefaultUI.progressBackground().bitmapData;;
+			
+			defaultDir.addItem('progress', progress);
+			defaultDir.addItem('background', background);
+			
+			
+			
+			addToContext(defaultVfs);
 			addToContext(stage);
+			addToContext(new StylesCollector());
 			
 			var XMLBootsTrap:XMLBootstrap = new XMLBootstrap();
-			XMLBootsTrap.loadConfig('/config/test/main.xml');
+			XMLBootsTrap.loadConfig('./config/test/main.xml');
 		}
 		
 	}

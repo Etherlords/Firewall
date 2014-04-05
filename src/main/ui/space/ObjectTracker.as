@@ -1,7 +1,9 @@
 package ui.space 
 {
 	import characters.Actor;
+	import core.fileSystem.IFS;
 	import flash.display.Bitmap;
+	import flash.display.BitmapData;
 	import flash.display.Sprite;
 	import flash.text.TextField;
 	
@@ -11,10 +13,18 @@ package ui.space
 		
 		private var icon:Bitmap;
 		private var info:TextField;
+		private var type:String;
 		
-		public function ObjectTracker() 
+		[Inject]
+		public var vfs:IFS;
+		
+		public function ObjectTracker(type:String) 
 		{
 			super();
+			this.type = type;
+			
+			
+			inject(this);
 			
 			initialize();
 		}
@@ -22,10 +32,15 @@ package ui.space
 		private function initialize():void 
 		{
 			info = new TextField();
-			icon = new Bitmap();
+			
+			icon = new Bitmap(vfs.getFile('res/textures/icons/' + type + '.png').content as BitmapData);
+			icon.scaleX = icon.scaleY = 0.8
+			icon.alpha = 0.5;;
 			
 			addChild(icon);
-			addChild(info);
+			//addChild(info);
+			
+			align();
 		}
 		
 		public function update():void

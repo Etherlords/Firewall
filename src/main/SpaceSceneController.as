@@ -14,7 +14,7 @@ package
 		
 		private var _planets:Vector.<Actor> = new Vector.<Actor>
 		private var _ships:Vector.<Actor> = new Vector.<Actor>
-		private var sun:Actor;
+		public var sun:Actor;
 		
 		public function SpaceSceneController(view:View3D) 
 		{

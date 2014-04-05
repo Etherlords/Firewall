@@ -94,7 +94,7 @@ package gameui
 			{
 				addChild(icons[i]);
 			}
-			
+			 
 			addComponent(logo)
 		}
 		

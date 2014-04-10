@@ -1,4 +1,4 @@
-package ui 
+package ui.style 
 {
 	import core.collections.Iterable;
 	

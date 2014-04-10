@@ -10,7 +10,7 @@ package ui.style
 
 	public class StylesCollector 
 	{
-		private var styles:SimpleMap = new SimpleMap();
+		public var styles:SimpleMap = new SimpleMap();
 		
 		public function StylesCollector() 
 		{

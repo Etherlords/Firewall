@@ -16,7 +16,7 @@ package ui
 		public var lineWidth:Number = 1;
 		
 		
-		public function LineDrawer(path:LinePath = null, closePath:Boolean = false, style:Style=null) 
+		public function LineDrawer(style:Style=null, path:LinePath = null, closePath:Boolean = false) 
 		{
 			super(style);
 			

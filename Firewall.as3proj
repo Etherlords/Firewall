@@ -12,6 +12,7 @@
     <movie minorVersion="9" />
     <movie platform="AIR" />
     <movie background="#000000" />
+    <movie preferredSDK="AIR 3.9.0;3.9.0;" />
   </output>
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
@@ -81,7 +82,7 @@
   </library>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>
-    <compile path="src\main\StartUp.as" />
+    <compile path="src\componentConstructor\ComponentsStartUp.as" />
   </compileTargets>
   <!-- Paths to exclude from the Project Explorer tree -->
   <hiddenPaths>

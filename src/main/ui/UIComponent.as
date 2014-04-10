@@ -5,6 +5,7 @@ package ui
 	import flash.display.Sprite;
 	import ui.effects.OverEffect;
 	import ui.style.Style;
+	import ui.style.StyleSheet;
 	
 	public class UIComponent extends Sprite implements IDestructable
 	{
@@ -12,6 +13,8 @@ package ui
 		protected var styleSheet:StyleSheet = new StyleSheet();
 		
 		protected var subComponentsList:Vector.<UIComponent> = new Vector.<UIComponent>;
+		
+		protected var invaildLayout:Boolean = true;
 		
 		public function UIComponent(style:Style = null) 
 		{
@@ -22,9 +25,23 @@ package ui
 			applyStyle();
 			createChildren();
 			configureChildren();
-			layoutChildren();
 			updateDisplayList();
 			initialize();
+		}
+		
+		protected function invalidateLayout():void
+		{
+			invaildLayout = true;
+		}
+		
+		public function removeComponents():void
+		{
+			for (var i:int = 0; i < subComponentsList.length; i++)
+			{
+				removeChild(subComponentsList[i])
+			}
+			
+			subComponentsList = new Vector.<UIComponent>;
 		}
 		
 		public function removeComponent(component:UIComponent):void
@@ -54,6 +71,9 @@ package ui
 			{
 				subComponentsList[i].update();
 			}
+			
+			if(invaildLayout)
+				layoutChildren();
 		}
 		
 		public function setEffect(effect:OverEffect):void
@@ -88,7 +108,7 @@ package ui
 		
 		protected function layoutChildren():void
 		{
-			
+			invaildLayout = false;
 		}
 		
 		protected function destroyChildren():void
@@ -126,6 +146,9 @@ package ui
 			var stylesList:Iterable = styleSheet.styles;
 			
 			if (stylesList.length == 0)
+				return;
+				
+			if(!_style)
 				return;
 				
 			var currentItem:Object = stylesList.currentItem; 

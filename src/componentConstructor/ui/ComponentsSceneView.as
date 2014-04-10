@@ -1,16 +1,17 @@
 package ui 
 {
+	import core.datavalue.model.LazyProxy;
+	import core.datavalue.model.ObjectProxy;
+	import core.fileSystem.FsFile;
 	import core.fileSystem.IFS;
-	import flash.events.Event;
-	import flash.geom.Rectangle;
-	import ui.floderViewer.FloderViewer;
 	import ui.floderViewer.IconsFactory;
+	import ui.style.Style;
 	import ui.style.StylesCollector;
+	import ui.styles.ComponentStyleViewer;
+	import ui.styles.ComponentsViewer;
 	
-	public class ComponentsSceneView extends UIContainer
+	public class ComponentsSceneView extends UIComponent
 	{
-		private var flodersView:FloderViewer;
-		private var background:ScaleBitmap;
 		
 		[Inject]
 		public var vfs:IFS;
@@ -18,10 +19,12 @@ package ui
 		[Inject]
 		public var styles:StylesCollector;
 		
-		public var saveButton:Button;
+		private var componentsListViewer:ComponentsViewer;
+		private var styleViewer:ComponentStyleViewer;
 		
-		private var invaildLayout:Boolean = true;
-		private var text:Text;
+		private var dataModel:ObjectProxy = new LazyProxy(100);
+		private var explorer:Explorer;
+		private var filePreview:FilePreviewer;
 			
 		public function ComponentsSceneView() 
 		{
@@ -35,68 +38,51 @@ package ui
 			
 			addToContext(new IconsFactory());
 			
-			text = new TextWidthBackground(styles.getStyle('componentsSceneText'));
-			background = new ScaleBitmap(vfs.getFile("res/textures/ui/frame.png").content);
-			flodersView = new FloderViewer(null, vfs.directoriesList, 'res/');
-			saveButton = new Button(styles.getStyle("mainMenuButton"), "Save")
-		}
-		
-		override protected function initialize():void 
-		{
-			super.initialize();
+			for (var field:String in styles.styles.map)
+			{
+				var style:Style = styles.styles.map[field]
+				var file:FsFile = new FsFile();
+				file.name = field;
+				file.content = style;
+				file.path = '/';
+				file.extension = 'style';
+				vfs.directoriesList.addItem(field, file);
+			}
 			
-			flodersView.addEventListener(Event.CHANGE, onChange);
+			explorer = new Explorer(null, dataModel);
+			componentsListViewer = new ComponentsViewer(500, 400, dataModel);
+			styleViewer = new ComponentStyleViewer(dataModel);	
+			filePreview = new FilePreviewer(dataModel);
 		}
 		
 		override public function update():void 
 		{
-			if (invaildLayout)
-				layoutChildren();
-				
 			super.update();
 		}
 		
-		private function onChange(e:Event):void 
-		{
-			layoutChildren();
-			text.text = flodersView.directory.path;
-		}
-		
-		override protected function configureChildren():void 
-		{
-			super.configureChildren();
-			
-			background.scale9Grid = new Rectangle(1, 1, 1, 1);
-		}
 		
 		override protected function updateDisplayList():void 
 		{
 			super.updateDisplayList();
 			
-			addChild(background);
-			addComponent(flodersView);
-			addComponent(text);
-			addComponent(saveButton);
+			addComponent(explorer);
+			addComponent(styleViewer);
+			addComponent(componentsListViewer);
+			addComponent(filePreview);
 		}
 		
 		override protected function layoutChildren():void 
 		{
 			super.layoutChildren();
-			//invaildLayout = false;
 			
+			explorer.x = 0;
+			explorer.y = 0;
+			componentsListViewer.x = explorer.x + explorer.width + 2;
 			
-			text.y = 1;
+			filePreview.x = 0;
+			filePreview.y = explorer.y + explorer.height + 2;
 			
-			flodersView.y = text.y + text.height + 2;
-			background.y = flodersView.y-1;
-			
-			flodersView.x = 1;
-			background.setSize(flodersView.width + 2, flodersView.height + 2);
-			
-			text.width = flodersView.width + 2;
-			
-			saveButton.x = background.width - saveButton.width;
-			saveButton.y = background.y + background.height +2;
+			//styleViewer.y = saveButton.y + saveButton.height + 2;
 		}
 		
 	}

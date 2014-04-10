@@ -39,7 +39,7 @@ package ui
 			componentsView = new ComponentsSceneView();
 			sceneView = componentsView;
 			
-			componentsView.saveButton.addEventListener(MouseEvent.MOUSE_DOWN, onSave);
+			//componentsView.saveButton.addEventListener(MouseEvent.MOUSE_DOWN, onSave);
 		}
 		
 		private function onSave(e:MouseEvent):void 

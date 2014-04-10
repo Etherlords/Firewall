@@ -7,7 +7,7 @@ package ui.style
 		[Inject]
 		public var vfs:IFS;
 		
-		protected var styles:Object = { };
+		public var styles:Object = { };
 		
 		public function Style() 
 		{

@@ -32,9 +32,11 @@ package ui.floderViewer
 		
 		private var selectedFloder:FloderView;
 		private var scrollContainer:ScrollContainer;
-		private var container:Sprite;
+		private var container:UIComponent;
 		private var keyboardController:KeyBoardController;
 		private var scrollBar:ScrollBar;
+		
+		public var currentFile:FsFile;
 		
 		public function FloderViewer(style:Style=null, directory:IFile = null, path:String = '', maxWidth:Number = 500, maxHeight:Number = 200) 
 		{
@@ -53,7 +55,7 @@ package ui.floderViewer
 		{
 			super.createChildren();
 			
-			container = new Sprite();
+			container = new UIComponent();
 			
 			var scrollStyle:Style = new Style();
 			scrollStyle.fillStyle(new <String>[
@@ -121,7 +123,7 @@ package ui.floderViewer
 			for (i = 0; i < currentFlodersList.length; i++)
 			{
 				currentFlodersList[i].removeEventListener(MouseEvent.MOUSE_DOWN, onFloderSelect);
-				container.removeChild(currentFlodersList[i]);
+				container.removeComponent(currentFlodersList[i]);
 			}
 			
 			currentFlodersList = new Vector.<FloderView>;
@@ -136,7 +138,7 @@ package ui.floderViewer
 				floderView.addEventListener(MouseEvent.DOUBLE_CLICK, onOpenFile);
 				
 				currentFlodersList.push(floderView);
-				container.addChild(floderView);
+				container.addComponent(floderView);
 			}
 			
 			layoutChildren();
@@ -149,10 +151,16 @@ package ui.floderViewer
 			var floderView:FloderView = e.currentTarget as FloderView;
 			var file:IFile = floderView.file as IFile;
 			
+			
 			if (file is Directory)
 			{
 				directory = file;
 				setView();
+			}
+			else
+			{
+				currentFile = file as FsFile;
+				dispatchEvent(new Event(Event.OPEN));
 			}
 		}
 		

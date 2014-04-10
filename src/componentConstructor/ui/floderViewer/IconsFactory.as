@@ -17,11 +17,17 @@ package ui.floderViewer
 		
 		public function getIcon(file:*):BitmapData
 		{
+			var fileAsFsFile:FsFile = file as FsFile;
+			
 			if (file is Directory)
 				return vfs.getFile('res/textures/ui/floders/standart.png').content;
-			else if (file is FsFile && ((file as FsFile).extension == 'png' || (file as FsFile).extension == 'jpg'))
+			else if (fileAsFsFile && (fileAsFsFile.extension == 'png' || fileAsFsFile.extension == 'jpg'))
 			{
 				return (file as FsFile).content;
+			}
+			else if (fileAsFsFile && fileAsFsFile.extension == 'style')
+			{
+				return vfs.getFile('res/textures/ui/floders/style.png').content;
 			}
 			else
 			{

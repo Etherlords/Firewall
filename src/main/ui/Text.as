@@ -203,7 +203,7 @@ package ui
 			invalidFormat = false;
 			
 			this.textField.defaultTextFormat = format;
-			this.textField.setTextFormat(format, -1, textField.length-1);
+			this.textField.setTextFormat(format);
 		}
 		
 	}

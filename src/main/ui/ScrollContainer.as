@@ -1,8 +1,6 @@
 package ui 
 {
-	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
-	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.geom.Rectangle;
@@ -10,8 +8,8 @@ package ui
 	
 	public class ScrollContainer extends UIComponent 
 	{
-		private var _content:DisplayObject
-		private var container:Sprite;
+		private var _content:UIComponent;
+		private var container:UIComponent;
 		
 		private var scrollBar:ScrollBar;
 		
@@ -95,32 +93,32 @@ package ui
 		override protected function createChildren():void 
 		{
 			super.createChildren();
-			container = new Sprite();
+			container = new UIComponent();
 		}
 		
 		override protected function updateDisplayList():void 
 		{
 			super.updateDisplayList();
 			
-			addChild(container);
+			addComponent(container);
 			addComponent(scrollBar);
 		}
 		
-		public function get content():DisplayObject 
+		public function get content():UIComponent 
 		{
 			return _content;
 		}
 		
-		public function set content(value:DisplayObject):void 
+		public function set content(value:UIComponent):void 
 		{
 			_content = value;
 			
 			if (!_content)
-				container.removeChild(_content);
+				container.removeComponent(_content);
 				
 			_content = value;
 			
-			container.addChild(_content);
+			container.addComponent(_content);
 			
 			applySize();
 		}

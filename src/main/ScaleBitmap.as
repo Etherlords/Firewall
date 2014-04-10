@@ -25,11 +25,8 @@ package  {
 		
 		function ScaleBitmap(bmpData : BitmapData = null, pixelSnapping : String = "auto", smoothing : Boolean = false) {
 			
-			// super constructor
-			super(bmpData, pixelSnapping, smoothing);
-		
-			// original bitmap
 			_originalBitmap = bmpData.clone();
+			super(_originalBitmap.clone(), pixelSnapping, smoothing);
 		}
 
 		// ------------------------------------------------
@@ -41,8 +38,13 @@ package  {
 		/**
 		 * setter bitmapData
 		 */
-		override public function set bitmapData(bmpData : BitmapData) : void {
+		override public function set bitmapData(bmpData : BitmapData) : void 
+		{
+			if (_originalBitmap)
+				_originalBitmap.dispose();
+				
 			_originalBitmap = bmpData.clone();
+			
 			if (_scale9Grid != null) {
 				if (!validGrid(_scale9Grid)) {
 					_scale9Grid = null;
@@ -104,7 +106,7 @@ package  {
 		 * Update the effective bitmapData
 		 */
 		private function assignBitmapData(bmp : BitmapData) : void {
-			//super.bitmapData.dispose();
+			super.bitmapData.dispose();
 			super.bitmapData = bmp;
 		}
 
@@ -124,6 +126,10 @@ package  {
 		 * setSize
 		 */
 		public function setSize(w : Number, h : Number) : void {
+			
+			if (width == w && height == h)
+				return;
+			
 			if (_scale9Grid == null) {
 				super.width = w;
 				super.height = h;
@@ -147,36 +153,58 @@ package  {
 		//
 		// ------------------------------------------------
 		
-		/**
-		 * resize bitmap
-		 */
+		private static var rows:Array = [0, 0, 0, 0];
+		private static var cols:Array = [0, 0, 0, 0];
+		private static var dRows:Array = [0, 0, 0, 0];
+		private static var dCols:Array = [0, 0, 0, 0];
+		
+		private static var origin:Rectangle = new Rectangle();
+		private static var draw:Rectangle = new Rectangle();
+		private static var mat:Matrix = new Matrix();
+		
 		protected function resizeBitmap(w : Number, h : Number) : void {
 			
 			var bmpData : BitmapData = new BitmapData(w, h, true, 0x00000000);
 			
-			var rows : Array = [0, _scale9Grid.top, _scale9Grid.bottom, _originalBitmap.height];
-			var cols : Array = [0, _scale9Grid.left, _scale9Grid.right, _originalBitmap.width];
+			rows[0] = 0;
+			rows[1] = _scale9Grid.top
+			rows[2] = _scale9Grid.bottom
+			rows[3] = _originalBitmap.height
 			
-			var dRows : Array = [0, _scale9Grid.top, h - (_originalBitmap.height - _scale9Grid.bottom), h];
-			var dCols : Array = [0, _scale9Grid.left, w - (_originalBitmap.width - _scale9Grid.right), w];
-
-			var origin : Rectangle;
-			var draw : Rectangle;
-			var mat : Matrix = new Matrix();
-
+			cols[0] = 0;
+			cols[1] = _scale9Grid.left
+			cols[2] = _scale9Grid.right
+			cols[3] = _originalBitmap.width
 			
-			for (var cx : int = 0;cx < 3; cx++) {
-				for (var cy : int = 0 ;cy < 3; cy++) {
-					origin = new Rectangle(cols[cx], rows[cy], cols[cx + 1] - cols[cx], rows[cy + 1] - rows[cy]);
-					draw = new Rectangle(dCols[cx], dRows[cy], dCols[cx + 1] - dCols[cx], dRows[cy + 1] - dRows[cy]);
+			dRows[0] = 0;
+			dRows[1] = _scale9Grid.top
+			dRows[2] = h - (_originalBitmap.height - _scale9Grid.bottom);
+			dRows[3] = h
+			
+			dCols[0] = 0;
+			dCols[1] = _scale9Grid.left
+			dCols[2] = w - (_originalBitmap.width - _scale9Grid.right)
+			dCols[3] = w
+			
+			
+			for (var cx : int = 0; cx < 3; cx++) 
+			{
+				for (var cy : int = 0 ; cy < 3; cy++) 
+				{
+					origin.setTo(cols[cx], rows[cy], cols[cx + 1] - cols[cx], rows[cy + 1] - rows[cy]);
+					draw.setTo(dCols[cx], dRows[cy], dCols[cx + 1] - dCols[cx], dRows[cy + 1] - dRows[cy]);
+					
 					mat.identity();
+					
 					mat.a = draw.width / origin.width;
 					mat.d = draw.height / origin.height;
 					mat.tx = draw.x - origin.x * mat.a;
 					mat.ty = draw.y - origin.y * mat.d;
+					
 					bmpData.draw(_originalBitmap, mat, null, null, draw, smoothing);
 				}
 			}
+			
 			assignBitmapData(bmpData);
 		}
 	}

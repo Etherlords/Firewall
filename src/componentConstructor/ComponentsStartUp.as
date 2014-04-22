@@ -5,6 +5,9 @@ package
 	import core.fileSystem.LocalFileSystem;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.text.TextField;
+	import flash.text.TextFieldType;
+	import ui.AutoCompleteManager;
 	import ui.style.StylesCollector;
 	
 	public class ComponentsStartUp extends Sprite 
@@ -15,6 +18,19 @@ package
 		{
 			super();
 			
+			/*var text:TextField = new TextField();
+			text.type = TextFieldType.INPUT;
+			text.border = true;
+			text.width = 150;
+			text.height = 20;
+			
+			addChild(text);
+			text.borderColor = 0xFFFFFF;
+			text.textColor = 0xFFFFFF;
+			
+			var autoComplete:AutoCompleteManager = new AutoCompleteManager(text);
+			autoComplete.completionMap.push("test", "test.find.text");
+			return;*/
 			if (stage)
 				initialize();
 			else
@@ -51,7 +67,7 @@ package
 			addToContext(new StylesCollector());
 			
 			var XMLBootsTrap:XMLBootstrap = new XMLBootstrap();
-			XMLBootsTrap.loadConfig('/config/test/comps/componentsMain.xml');
+			XMLBootsTrap.loadConfig('./config/test/comps/componentsMain.xml');
 		}
 		
 	}

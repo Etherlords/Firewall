@@ -39,7 +39,7 @@ package ui
 			componentsView = new ComponentsSceneView();
 			sceneView = componentsView;
 			
-			//componentsView.saveButton.addEventListener(MouseEvent.MOUSE_DOWN, onSave);
+			componentsView.explorer.saveButton.addEventListener(MouseEvent.MOUSE_DOWN, onSave);
 		}
 		
 		private function onSave(e:MouseEvent):void 
@@ -59,6 +59,8 @@ package ui
 			var sizes:ByteArray = new ByteArray();
 			
 			sizes.writeUTF("VFSFILE");
+			
+			vfs.directoriesList.index = 0;
 			saveDirs(ba, sizes, vfs.directoriesList.currentItem);
 			sizes.writeBytes(ba);
 			
@@ -68,6 +70,7 @@ package ui
 		
 		private function saveDirs(ba:ByteArray, sizes:ByteArray,  dir:Directory):void
 		{
+			dir.index = 0;
 			var item:IFile = dir.currentItem;
 			
 			ba.writeInt(0);

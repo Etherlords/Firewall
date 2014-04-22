@@ -4,6 +4,7 @@ package ui
 	import core.fileSystem.IFS;
 	import flash.events.Event;
 	import flash.geom.Rectangle;
+	import flash.text.TextFieldType;
 	import ui.floderViewer.FloderViewer;
 	import ui.style.Style;
 	import ui.style.StylesCollector;
@@ -19,6 +20,7 @@ package ui
 		private var flodersView:FloderViewer;
 		private var background:ScaleBitmap;
 		private var text:Text;
+		private var findText:Text;
 		private var dataModel:ObjectProxy;
 		public var saveButton:Button;
 		
@@ -65,6 +67,7 @@ package ui
 			super.createChildren();
 			
 			text = new TextWidthBackground(styles.getStyle('componentsSceneText'));
+			findText = new TextWidthBackground(styles.getStyle('componentsSceneText'));
 			background = new ScaleBitmap(vfs.getFile("res/textures/ui/frame.png").content);
 			flodersView = new FloderViewer(null, vfs.directoriesList, 'res/');
 			saveButton = new Button(styles.getStyle("mainMenuButton"), "Save")
@@ -77,6 +80,7 @@ package ui
 			addChild(background);
 			addComponent(flodersView);
 			addComponent(text);
+			addComponent(findText);
 			addComponent(saveButton);
 		}
 		
@@ -90,6 +94,10 @@ package ui
 			super.configureChildren();
 			
 			background.scale9Grid = new Rectangle(1, 1, 1, 1);
+			
+			var autocomplete:AutoCompleteManager = new AutoCompleteManager(findText.textField);
+			autocomplete.completionMap.push('test', 'test2');
+			findText.type = TextFieldType.INPUT;
 		}
 		
 		override protected function layoutChildren():void 
@@ -99,6 +107,7 @@ package ui
 			
 			//background.setSize(flodersView.width, flodersView.height);
 			text.y = 1;
+			findText.y = 1;
 			
 			flodersView.y = text.y + text.height + 2;
 			background.y = flodersView.y-1;
@@ -106,7 +115,9 @@ package ui
 			flodersView.x = 1;
 			background.setSize(flodersView.width + 2, flodersView.height + 2);
 			
-			text.width = flodersView.width + 2;
+			text.width = flodersView.width + 2 - 100;
+			findText.width = 100;
+			findText.x = text.x + text.width
 			
 			saveButton.x = background.width - saveButton.width;
 			saveButton.y = background.y + background.height +2;

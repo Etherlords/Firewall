@@ -67,8 +67,8 @@ package ui.floderViewer
 				"background=@res/textures/ui/frame.png"
 			]);
 			
-			scrollBar = new ScrollBar(maxHeight, 0, maxHeight, scrollStyle);
-			scrollContainer = new ScrollContainer(scrollBar, maxWidth, maxHeight, contianerStyle);
+			scrollBar = new ScrollBar(scrollStyle, maxHeight, 0, maxHeight);
+			scrollContainer = new ScrollContainer(contianerStyle, scrollBar, maxWidth, maxHeight);
 		}
 		
 		override protected function configureChildren():void 
@@ -113,11 +113,12 @@ package ui.floderViewer
 		private function setView():void
 		{
 			var i:int;
-			var currentFloder:Object = directory;
 			
-			if (currentFloder is FsFile)
+			var currentFloder:Directory = directory as Directory;
+			
+			if (!currentFloder)
 				return;
-				
+						
 			scrollBar.position = 0;
 			
 			for (i = 0; i < currentFlodersList.length; i++)
@@ -128,9 +129,9 @@ package ui.floderViewer
 			
 			currentFlodersList = new Vector.<FloderView>;
 			
-			for (i = 0; i < currentFloder.length; i++)
+			currentFloder.index = 0;
+			for (var file:IFile = currentFloder.currentItem; currentFloder.index < currentFloder.length; file = currentFloder.nextItem)
 			{
-				var file:Object = currentFloder.nextItem;
 				var floderView:FloderView = new FloderView(file, iconFactory.getIcon(file), 64, file.name)
 				
 				floderView.addEventListener(MouseEvent.MOUSE_DOWN, onFloderSelect);

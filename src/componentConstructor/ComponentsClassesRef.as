@@ -5,6 +5,7 @@ package
 	import core.fileSystem.DirectoryScaner;
 	import core.fileSystem.LocalFileSystem;
 	import core.fileSystem.VirtualDirectoryScaner;
+	import core.services.FileDecodeService;
 	import core.services.FileLoadingService;
 	import display.ui.DisplayManager;
 	import gameui.preloadScreen.PreloaderScene;
@@ -20,8 +21,10 @@ package
 		public static var localFileSystem:LocalFileSystem;
 		
 		public static var fileDecoderFactory:FileDecoderFactory;
-		public static var fileLoadingService :FileLoadingService;
 		public static var desktopFileLoader  :DesktopFileLoader;
+		
+		public static var fileLoadingService :FileLoadingService;
+		public static var _FileDecodingService:FileDecodeService;
 		
 		public static var scenesController:CompSceneController;
 		public static var componentsScene:ComponentsScene;

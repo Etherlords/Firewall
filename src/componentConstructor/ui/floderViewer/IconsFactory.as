@@ -20,14 +20,18 @@ package ui.floderViewer
 			var fileAsFsFile:FsFile = file as FsFile;
 			
 			if (file is Directory)
-				return vfs.getFile('res/textures/ui/floders/standart.png').content;
+				return vfs.getFile('res/textures/ui/floders/floder.png').content;
 			else if (fileAsFsFile && (fileAsFsFile.extension == 'png' || fileAsFsFile.extension == 'jpg'))
 			{
-				return (file as FsFile).content;
+				return vfs.getFile('res/textures/ui/floders/image.png').content;
 			}
 			else if (fileAsFsFile && fileAsFsFile.extension == 'style')
 			{
 				return vfs.getFile('res/textures/ui/floders/style.png').content;
+			}
+			else if (fileAsFsFile.extension == "obj" || fileAsFsFile.extension == "awd")
+			{
+				return vfs.getFile('res/textures/ui/floders/3dimage.png').content;
 			}
 			else
 			{

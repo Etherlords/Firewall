@@ -24,7 +24,7 @@ package ui
 		
 		private var onPressMouseDelta:Number = 0;
 		
-		public function ScrollBar(size:Number = 200, position:Number = 0, pageSize:Number = 200, style:Style = null) 
+		public function ScrollBar(style:Style = null, size:Number = 200, position:Number = 0, pageSize:Number = 200) 
 		{
 			_pageSize = pageSize;
 			_position = position;

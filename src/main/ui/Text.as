@@ -1,13 +1,16 @@
 package ui 
 {
+	import flash.events.KeyboardEvent;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
+	import flash.ui.Keyboard;
+	import ui.events.TextEvent;
 	import ui.style.Style;
 	
 	public class Text extends UIComponent 
 	{
-		protected var textField:TextField = new TextField();
+		public var textField:TextField = new TextField();
 		private var format:TextFormat = new TextFormat();
 		
 		private var invalidFormat:Boolean = true;
@@ -19,7 +22,6 @@ package ui
 		public function Text(style:Style=null) 
 		{
 			super(style);
-			
 		}
 		
 		override public function get height():Number 
@@ -69,6 +71,14 @@ package ui
 				return;
 				
 			textField.gridFitType = value;
+		}
+		
+		public function set type(value:String):void
+		{
+			if (textField.type == value)
+				return;
+				
+			textField.type = value;
 		}
 		
 		public function set sharpness(value:Number):void
@@ -135,6 +145,26 @@ package ui
 		private function invalidateFormat():void
 		{
 			invalidFormat = true;
+		}
+		
+		override protected function initialize():void 
+		{
+			super.initialize();
+			
+			textField.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
+		}
+		
+		private function onKeyDown(e:KeyboardEvent):void 
+		{
+			if (e.keyCode == Keyboard.ENTER)
+				dispatchEvent(new TextEvent(TextEvent.TEXT_ENTER, false, false, textField.text));
+		}
+		
+		override public function destroy():void 
+		{
+			super.destroy();
+			
+			textField.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 		}
 		
 		override protected function buildStyleSheet():void 

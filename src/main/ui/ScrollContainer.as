@@ -3,6 +3,7 @@ package ui
 	import flash.display.DisplayObject;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import ui.style.Style;
 	
@@ -16,7 +17,7 @@ package ui
 		private var _w:Number;
 		private var _h:Number;
 		
-		public function ScrollContainer(scrollBar:ScrollBar, w:Number, h:Number, style:Style=null) 
+		public function ScrollContainer(style:Style=null, scrollBar:ScrollBar = null, w:Number = 100, h:Number = 250) 
 		{
 			this.scrollBar = scrollBar;
 			_h = h;
@@ -25,15 +26,32 @@ package ui
 			super(style);	
 		}
 		
+		private var contentOldHeight:Number = 0;
+		
 		override public function update():void 
 		{
 			super.update();
 			
+			if (_content && _content.height != contentOldHeight)
+			{
+				contentOldHeight = _content.height;
+				setContentPosition();
+			}
+		}
+		
+		private function setContentPosition():void 
+		{
 			if (_content)
 			{
-				scrollBar.pageSize = _content.height;
+				scrollBar.pageSize = contentOldHeight;
 				scrollBar.size = _h;
-				_content.y = -((_content.height - _h) * scrollBar.position);
+				
+				var heightDelta:Number = _h - contentOldHeight;
+				
+				if (heightDelta > 0)
+					heightDelta = 0;
+				
+				_content.y = heightDelta * scrollBar.position;
 			}
 		}
 		
@@ -48,7 +66,7 @@ package ui
 		private function applySize():void
 		{
 			if(container)
-				container.scrollRect = new Rectangle(0, 0, _w, _h);
+				container.scrollRect = new Rectangle(0, 0, _w - scrollBar.width, _h);
 		}
 		
 		override protected function configureChildren():void 
@@ -70,17 +88,31 @@ package ui
 			stage.addEventListener(MouseEvent.MOUSE_WHEEL, onMouseWheel);
 		}
 		
+		private static var topLeft:Point = new Point();
+		private static var bottomRight:Point = new Point();
+		
 		private function onMouseWheel(e:MouseEvent):void 
 		{
-			if (!isInside(e.localX, e.localY, this))
+			topLeft.setTo(this.x, this.y);
+			topLeft = localToGlobal(topLeft);
+			bottomRight.setTo(topLeft.x + width, topLeft.y + height);
+			
+			if (!isInside(e.stageX, e.stageY, this))
 				return;
-				
-			this.scrollBar.position -= e.delta / 100;
+			
+			var delta:Number = -100 / (_h - _content.height);
+			
+			if (e.delta < 0)
+				delta *= -1;
+			
+			this.scrollBar.position -= delta;
+			
+			setContentPosition();
 		}
 		
 		private function isInside(x:Number, y:Number, obj:DisplayObject):Boolean
 		{
-			return x > obj.x && obj.x < obj.width + obj.x && y > obj.y && y < obj.height + obj.y
+			return x > topLeft.x && x < bottomRight.x && y > topLeft.y && y < bottomRight.y
 		}
 		
 		override protected function layoutChildren():void 

@@ -16,6 +16,8 @@ package ui
 		
 		protected var invaildLayout:Boolean = true;
 		
+		protected var _mouseInteraction:Boolean = true;
+		
 		public function UIComponent(style:Style = null) 
 		{
 			_style = style;
@@ -27,6 +29,20 @@ package ui
 			configureChildren();
 			updateDisplayList();
 			initialize();
+		}
+		
+		public function get mouseInteraction():Boolean
+		{
+			return _mouseInteraction;
+		}
+		
+		public function set mouseInteraction(value:Boolean):void
+		{
+			if (_mouseInteraction == value)
+				return;
+				
+			this.mouseChildren = value;
+			this.mouseEnabled = value;
 		}
 		
 		protected function invalidateLayout():void
@@ -113,7 +129,10 @@ package ui
 		
 		protected function destroyChildren():void
 		{
-			
+			for (var i:int = 0; i < subComponentsList.length; i++)
+			{
+				removeChild(subComponentsList[i]);
+			}
 		}
 		
 		public function destroy():void

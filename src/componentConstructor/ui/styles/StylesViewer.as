@@ -2,6 +2,7 @@ package ui.styles
 {
 	import core.fileSystem.IFS;
 	import flash.display.BitmapData;
+	import flash.events.MouseEvent;
 	import flash.geom.Rectangle;
 	import ui.ImageViewer;
 	import ui.style.Style;
@@ -61,27 +62,40 @@ package ui.styles
 		
 		private function showField(fieldObject:Object, field:String):void 
 		{
+			var uiElement:UIComponent;
 			if (fieldObject is BitmapData)
 			{
-				showImage(fieldObject as BitmapData,field);
+				uiElement = showImage(fieldObject as BitmapData, field);
+				uiElement.addEventListener(MouseEvent.CLICK, onElementClick);
 			}
 			else
 			{
-				showAsText(fieldObject, field);
+				uiElement = showAsText(fieldObject, field);
+				uiElement.addEventListener(MouseEvent.CLICK, onElementClick);
 			}
+			
+			
 		}
 		
-		private function showImage(bitmapData:BitmapData, field:String):void
+		private function onElementClick(e:MouseEvent):void 
+		{
+			trace(e.target, e.currentTarget);
+		}
+		
+		private function showImage(bitmapData:BitmapData, field:String):UIComponent
 		{
 			var uiComponent:ImageViewer = new ImageViewer(bitmapData);// , bitmapData.width, bitmapData.height);
 			pushComponent(uiComponent, field);
+			return uiComponent;
 		}
 		
-		private function showAsText(value:Object, field:String):void
+		private function showAsText(value:Object, field:String):UIComponent
 		{		
 			var uiComponent:TextWidthBackground = new TextWidthBackground(styles.getStyle("componentsSceneText"));
 			uiComponent.text = value.toString();
 			pushComponent(uiComponent, field);
+			
+			return uiComponent;
 		}
 		
 		private function pushComponent(uiComponent:UIComponent, field:String):void

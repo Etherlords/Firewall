@@ -1,0 +1,41 @@
+apply plugin: 'gradlefx'
+apply plugin: 'maven'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'org.gradlefx', name: 'gradlefx', version: '0.6'
+    }
+}
+
+type = 'swf'
+
+repositories {
+	add(new org.apache.ivy.plugins.resolver.URLResolver()) {
+		name = 'Apache'
+		addArtifactPattern 'http://apache.cu.be/flex/[revision]/binaries/[module]-[revision]-bin.[ext]'
+	}
+}
+
+dependencies {
+    flexSDK group: 'org.apache', name: 'apache-flex-sdk', version: '4.12.0', ext: 'zip'
+    //external files('libs/')
+}
+
+sdkAutoInstall {
+	showPrompts	= false
+}
+
+additionalCompilerOptions = [
+  '-target-player=11.1',
+]
+
+output = 'Firewall'
+
+mainClass = 'main/StartUp.as'
+
+srcDirs = ['src/']
+
+buildDir = 'bin'

@@ -120,9 +120,9 @@ package gameui.mainmenu
 									vfs.getFile("res/textures/skybox/space/posZ.jpg").content, vfs.getFile("res/textures/skybox/space/negZ.jpg").content));
 									
 									
-			selectionOutLine = new LineDrawer(null, true, styles.getStyle("mainMenu"));
-			selectionToTargetLine = selectionToTargetLine = new LineDrawer(null, false, styles.getStyle("mainMenu"));
-			iconLine = new LineDrawer(null, true, styles.getStyle("mainMenu"));
+			selectionOutLine = new LineDrawer(styles.getStyle("mainMenu"), null, true);
+			selectionToTargetLine = selectionToTargetLine = new LineDrawer(styles.getStyle("mainMenu"));
+			iconLine = new LineDrawer(styles.getStyle("mainMenu"), null, true);
 			
 			icon = new Button(styles.getStyle("mainMenuButton"), "ICON");
 			enter = new Button(styles.getStyle("mainMenuButton"), "ПЕРЕЙТИ");

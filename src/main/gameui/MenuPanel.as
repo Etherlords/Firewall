@@ -64,8 +64,8 @@ package gameui
 				icons.push(icon);
 			}
 			
-			designLine11 = new LineDrawer(null, false, styles.getStyle("mainMenu"));
-			designLine12 = new LineDrawer(null, false, styles.getStyle("mainMenu"));
+			designLine11 = new LineDrawer(styles.getStyle("mainMenu"), null, false);
+			designLine12 = new LineDrawer(styles.getStyle("mainMenu"), null, false);
 		
 		}
 		

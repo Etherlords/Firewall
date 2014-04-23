@@ -53,7 +53,7 @@ package gameui
 		{
 			super.createChildren();
 			
-			scrollBar = new ScrollBar(100, 0, 200, styles.getStyle("newsScrolStyle"));
+			scrollBar = new ScrollBar(styles.getStyle("newsScrolStyle"), 100, 0, 200);
 			
 			background = new ScaleBitmap(vfs.getFile("res/textures/ui/newsPanel/background.png").content);
 			newsBackground = new ScaleBitmap(vfs.getFile("res/textures/ui/newsPanel/newbackground.png").content);
@@ -62,13 +62,13 @@ package gameui
 			titleText = new TextWidthBackground(styles.getStyle("newsTextFormat"))
 			runnerLineText = new TextWidthBackground(styles.getStyle("newsTextFormat"))
 			
-			borderLine = new LineDrawer(null, true, styles.getStyle("mainMenu"));
-			dateBorder = new LineDrawer(null, true, styles.getStyle("mainMenu"));
-			titleBorder = new LineDrawer(null, true, styles.getStyle("mainMenu"));
-			runnerTextBorder1 = new LineDrawer(null, true, styles.getStyle("mainMenu"));
-			runnerTextBorder2 = new LineDrawer(null, true, styles.getStyle("mainMenu"));
-			newBorder1 = new LineDrawer(null, false, styles.getStyle("mainMenu"));
-			newBorder2 = new LineDrawer(null, false, styles.getStyle("mainMenu"));
+			borderLine = new LineDrawer(styles.getStyle("mainMenu"), null, true);
+			dateBorder = new LineDrawer(styles.getStyle("mainMenu"), null, true);
+			titleBorder = new LineDrawer(styles.getStyle("mainMenu"), null, true);
+			runnerTextBorder1 = new LineDrawer(styles.getStyle("mainMenu"), null, true);
+			runnerTextBorder2 = new LineDrawer(styles.getStyle("mainMenu"), null, true);
+			newBorder1 = new LineDrawer(styles.getStyle("mainMenu"), null, false);
+			newBorder2 = new LineDrawer(styles.getStyle("mainMenu"), null, false);
 			
 			for (var i:int = 0; i < 6; i++)
 			{

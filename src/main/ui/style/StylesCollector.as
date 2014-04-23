@@ -10,10 +10,11 @@ package ui.style
 
 	public class StylesCollector 
 	{
-		public var styles:SimpleMap = new SimpleMap();
+		public var styles:SimpleMap;
 		
 		public function StylesCollector() 
 		{
+			styles = new SimpleMap();
 			defaultStyles();
 			
 			//describe("vfs", Event.COMPLETE, onVfsComplete);

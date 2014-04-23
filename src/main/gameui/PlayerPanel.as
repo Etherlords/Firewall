@@ -57,9 +57,9 @@ package gameui
 				icons.push(icon);
 			}
 			
-			designLine11 = new LineDrawer(null, false, styles.getStyle("mainMenu"));
-			designLine12 = new LineDrawer(null, false, styles.getStyle("mainMenu"));
-			designLine13 = new LineDrawer(null, false, styles.getStyle("mainMenu"));
+			designLine11 = new LineDrawer(styles.getStyle("mainMenu"));
+			designLine12 = new LineDrawer(styles.getStyle("mainMenu"));
+			designLine13 = new LineDrawer(styles.getStyle("mainMenu"));
 		}
 		
 		override protected function updateDisplayList():void 

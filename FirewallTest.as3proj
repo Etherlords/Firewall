@@ -6,28 +6,25 @@
     <movie input="" />
     <movie path="bin\Firewall.swf" />
     <movie fps="30" />
-    <movie width="1280" />
-    <movie height="960" />
+    <movie width="800" />
+    <movie height="600" />
     <movie version="3" />
     <movie minorVersion="9" />
     <movie platform="AIR" />
-    <movie background="#000000" />
-    <movie preferredSDK="Flex 4.6.0, AIR 3.9;4.6.0, 3.9;" />
+    <movie background="#FFFFFF" />
   </output>
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
-    <class path="src\main" />
-    <class path="..\away3d-core-fp11\src" />
-    <class path="..\share-utils\src" />
-    <class path="..\share-ioc\src" />
     <class path="..\share-core\src" />
-    <class path="src\componentConstructor" />
     <class path="..\share-desktop\src" />
+    <class path="..\share-ioc\src" />
+    <class path="..\share-utils\src" />
+    <class path="src\test" />
   </classpaths>
   <!-- Build options -->
   <build>
     <option accessible="False" />
-    <option advancedTelemetry="True" />
+    <option advancedTelemetry="False" />
     <option allowSourcePathOverlap="False" />
     <option benchmark="False" />
     <option es="False" />
@@ -49,7 +46,7 @@
     <option linkReport="" />
     <option loadExterns="" />
     <option staticLinkRSL="True" />
-    <option additional="-keep-as3-metadata+=Inject " />
+    <option additional="" />
     <option compilerConstants="" />
     <option minorVersion="" />
   </build>
@@ -59,11 +56,10 @@
   </includeLibraries>
   <!-- SWC Libraries -->
   <libraryPaths>
-    <element path="lib\greensock.swc" />
-    <element path="lib\hamcrest-as3-1.1.0.swc" />
-    <element path="lib\flexunit-uilistener-4.1.0_RC2-4-4.1.0.16076.swc" />
-    <element path="lib\flexunit-4.1.0_RC2-4-flex_4.1.0.16076.swc" />
-    <element path="lib\FlexUnit1Lib.swc" />
+    <element path="testlib\FlexUnit1Lib.swc" />
+    <element path="testlib\flexunit-4.1.0_RC2-4-flex_4.1.0.16076.swc" />
+    <element path="testlib\flexunit-uilistener-4.1.0_RC2-4-4.1.0.16076.swc" />
+    <element path="testlib\hamcrest-as3-1.1.0.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>
@@ -75,7 +71,7 @@
   </rslPaths>
   <!-- Intrinsic Libraries -->
   <intrinsics>
-    <!-- example: <element path="..." /> -->
+    <element path="Library\AS3\frameworks\Flex4" />
   </intrinsics>
   <!-- Assets to embed into the output SWF -->
   <library>

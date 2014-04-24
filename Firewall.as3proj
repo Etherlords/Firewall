@@ -12,16 +12,15 @@
     <movie minorVersion="9" />
     <movie platform="AIR" />
     <movie background="#000000" />
-    <movie preferredSDK="Flex 4.6.0, AIR 3.9;4.6.0, 3.9;" />
   </output>
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
+    <class path="..\graphicscorelib\src" />
     <class path="src\main" />
     <class path="..\away3d-core-fp11\src" />
     <class path="..\share-utils\src" />
     <class path="..\share-ioc\src" />
     <class path="..\share-core\src" />
-    <class path="src\componentConstructor" />
     <class path="..\share-desktop\src" />
   </classpaths>
   <!-- Build options -->
@@ -83,7 +82,7 @@
   </library>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>
-    <compile path="src\test\TestRunner.mxml" />
+    <compile path="src\main\StartUp.as" />
   </compileTargets>
   <!-- Paths to exclude from the Project Explorer tree -->
   <hiddenPaths>

@@ -1,0 +1,24 @@
+<beans>
+	
+	<eventScope scopeName="directoryScaner"/>
+	<eventScope scopeName="vfs"/>
+	
+	<bean id="directoryRoot" class="core.fileSystem.Directory"/>
+	
+	<bean id="directoryScaner" class="core.fileSystem.VirtualDirectoryScaner" init-method="scan">
+		<property name="directoryRoot" ref="directoryRoot"/>
+		<property name="path" value="fs.fs"/>
+		<property name="scope" value="directoryScaner"/>
+	</bean>
+	
+	<bean id="vfs" class="core.fileSystem.LocalFileSystem" init-method="test">
+		<property name="directoriesList" ref="directoryRoot"/>
+		<property name="loadingService" ref="fileLoadingService"/>
+		<describeEvent scopeName="directoryScaner" type="complete" handler="onScanComplete" />
+	</bean> 
+	
+	<bean id="fileLoadingService" class="core.services.FileDecodeService" init-method="initialize">
+		<property name="fileDecoderFactory" ref="fileDecoder"/>
+	</bean>
+	
+</beans>

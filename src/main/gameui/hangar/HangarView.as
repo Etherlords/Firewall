@@ -94,7 +94,7 @@ package gameui.hangar
 		{
 			
 			return
-			shipView = vfs.getFile('res/models/ships/mainmenu/mesh.awd').content;
+			/*shipView = vfs.getFile('res/models/ships/mainmenu/mesh.awd').content;
 			var viewContorller:ViewController = new ViewController(shipView);
 			starBase = new Actor(viewContorller);
 			
@@ -105,7 +105,7 @@ package gameui.hangar
 			shipView.getChildAt(1).rotationY = 90 - 65 - 90 - 15;
 			
 			shipView.rotationX -= 25;
-			shipView.rotationZ -= 15;
+			shipView.rotationZ -= 15;*/
 		}
 		
 		override protected function configureChildren():void 

@@ -13,6 +13,7 @@ package
 	import ui.LineDrawer;
 	import ui.style.StylesCollector;
 
+	[SWF(backgroundColor="0x0", width=1280, height=960)]
 	public class StartUp extends Sprite 
 	{
 		private static const classRef:ClassReference = new ClassReference();

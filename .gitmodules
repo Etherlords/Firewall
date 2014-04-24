@@ -1,0 +1,16 @@
+[submodule "modules/share-core"]
+	path = modules/share-core
+	url = https://github.com/Etherlords/share-core.git
+[submodule "modules/share-utils"]
+	path = modules/share-utils
+	url = https://github.com/Etherlords/share-utils.git
+[submodule "modules/share-desktop"]
+	path = modules/share-desktop
+	url = https://github.com/Etherlords/share-desktop.git
+[submodule "modules/share-ioc"]
+	path = modules/share-ioc
+	url = https://github.com/Etherlords/share-ioc.git
+[submodule "modules/away3d-core-fp11"]
+	path = modules/away3d-core-fp11
+	url = https://github.com/away3d/away3d-core-fp11.git
+	branch = dev

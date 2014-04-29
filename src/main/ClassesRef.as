@@ -16,7 +16,7 @@ package
 	import gameui.ScenesController;
 	import geom.PathMathematic;
 	
-	public class ClassReference 
+	public class ClassesRef 
 	{
 		public static var textContext:TestContext;
 		

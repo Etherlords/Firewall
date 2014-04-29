@@ -16,7 +16,7 @@ package
 	[SWF(backgroundColor="0x0", width=1280, height=960)]
 	public class StartUp extends Sprite 
 	{
-		private static const classRef:ClassReference = new ClassReference();
+		private static const classRef:ClassesRef = new ClassesRef();
 		private static const defaultUI:DefaultUI = new DefaultUI();
 		
 		public function StartUp() 

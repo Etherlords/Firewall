@@ -8,7 +8,8 @@
 	<bean id="directoryScaner" class="core.fileSystem.VirtualDirectoryScaner" init-method="scan">
 		<property name="directoryRoot" ref="directoryRoot"/>
 		<property name="path" value="fs.fs"/>
-		<property name="scope" value="directoryScaner"/>
+		<scope value="directoryScaner"/>
+		<scope value="vfs"/>
 	</bean>
 	
 	<bean id="vfs" class="core.fileSystem.LocalFileSystem" init-method="test">

@@ -1,8 +1,12 @@
-type = 'swf'
+type = 'air'
 
 mainClass = 'StartUp.as'
 
 srcDirs = ['src/main' ]
+
+air {
+    applicationDescriptor   "application.xml"
+}
 
 dependencies {
     merged project(':away3d-core')

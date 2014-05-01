@@ -3,8 +3,8 @@ package
 	import core.external.io.DesktopFileLoader;
 	import core.fileSystem.Directory;
 	import core.fileSystem.DirectoryScaner;
-	import core.fileSystem.LocalFileSystem;
-	import core.fileSystem.VirtualDirectoryScaner;
+	import core.external.LocalFileSystem;
+	import core.external.VirtualDirectoryScaner;
 	import core.services.FileDecodeService;
 	import core.services.FileLoadingService;
 	import display.ui.DisplayManager;

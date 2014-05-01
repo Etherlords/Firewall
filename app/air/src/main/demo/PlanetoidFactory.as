@@ -12,7 +12,7 @@ package demo
 	import characters.view.PlanetViewController;
 	import core.fileSystem.FsFile;
 	import core.fileSystem.IFS;
-	import core.fileSystem.LocalFileSystem;
+	import core.external.LocalFileSystem;
 	import flash.display.BitmapData;
 	import flash.display.BitmapDataChannel;
 	import flash.geom.Point;

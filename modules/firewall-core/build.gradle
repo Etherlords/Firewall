@@ -1,15 +1,4 @@
-type = 'air'
-
-mainClass = 'StartUp.as'
-
-srcDirs = ['src/main' ]
-
-air {
-    applicationDescriptor   "application.xml"
-}
-
 dependencies {
-    merged project(':firewall-core')
     merged project(':away3d-core')
     merged project(':share-core')
     merged project(':share-ioc')

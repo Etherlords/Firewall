@@ -1,0 +1,22 @@
+<beans>
+	<import resource="second.xml"/>
+	<import resource="vfssettings.xml"/>
+	
+	
+	<eventScope scopeName="global"/>
+	
+	<bean id="pathMathematic" class="geom.PathMathematic">
+		<property name="worldTimeController" ref="worldTime"/>
+	</bean>
+	<bean id="worldTime" class="WorldTimeController"/>
+	
+	
+	<bean id="displayManager" class="display.ui.DisplayManager"/>
+	<bean id="fileDecoder" class="core.codec.FileDecoderFactory"/>
+	
+	<bean id="GameScene" class="GameScene">
+		<property name="vfs" ref="vfs"/>
+		<property name="displayManager" ref="displayManager"/>
+	</bean>
+	
+</beans>

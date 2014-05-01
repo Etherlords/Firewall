@@ -1,6 +1,0 @@
-<bean>
-	<bean id="resViewer" class="display.ui.ResourceViewer">
-		<property name="vfs" ref="vfs"/>
-		<property name="displayManager" ref="displayManager"/>
-	</bean>
-</bean>

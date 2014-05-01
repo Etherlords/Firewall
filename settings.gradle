@@ -1,0 +1,15 @@
+
+def rootD = getRootDir()
+def rootP = getRootProject()
+
+//Applications
+createProjectDescriptor(rootP, "web", file("${rootD}/app/web"))
+
+//Modules
+createProjectDescriptor(rootP, "away3d-core", file("${rootD}/modules/away3d-core-fp11"))
+createProjectDescriptor(rootP, "share-core", file("${rootD}/modules/share-core"))
+createProjectDescriptor(rootP, "share-desktop", file("${rootD}/modules/share-desktop"))
+createProjectDescriptor(rootP, "share-ioc", file("${rootD}/modules/share-ioc"))
+createProjectDescriptor(rootP, "share-utils", file("${rootD}/modules/share-utils"))
+
+//Tools

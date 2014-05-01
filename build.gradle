@@ -1,0 +1,91 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'org.gradlefx', name: 'gradlefx', version: '0.8.2'
+
+    }
+}
+
+subprojects {
+    apply plugin: 'gradlefx'
+    apply plugin: 'ideafx'
+    apply plugin: 'maven'
+
+    repositories {
+        add(new org.apache.ivy.plugins.resolver.URLResolver()) {
+            name = 'Apache'
+            addArtifactPattern 'http://apache.cu.be/flex/[revision]/binaries/[module]-[revision]-bin.[ext]'
+        }
+        maven {
+            name 'glassfish-releases'
+            url "http://opensource.adobe.com/svn/opensource/cairngorm3/maven-repository"
+        }
+        ivy {
+            name 'Apache'
+            artifactPattern 'http://archive.apache.org/dist/flex/[revision]/binaries/[module]-[revision]-bin.[ext]'
+        }
+        ivy {
+            name 'Adobe Air SDK'
+            artifactPattern 'http://download.macromedia.com/air/win/download/[revision]/[module].[ext]'
+        }
+        sdkAutoInstall {
+            showPrompts	= false
+        }
+    }
+
+    type = 'swc' //by default each subproject is swc
+
+    def sdkVersion = "13.0"
+    playerVersion = sdkVersion
+    ext.hamcrest_as3_version = '1.1'
+    flexSdkName = 'ascsdk'
+    flexHome = System.getenv()['FLEX_HOME']
+    frameworkLinkage = 'none'
+
+    def commonCompilerOpts = [
+            "+sdkVersion=${sdkVersion}",
+            '+swfVersion=24',
+            '-incremental=true',
+            '-tools-locale=en',
+            '+configname=airmobile',
+            '-load-config+=air-config.xml',
+            '-keep-as3-metadata+=Inject',
+            "-define=CONFIG::debug,true"
+    ]
+
+    flexUnit {
+        additionalCompilerOptions = commonCompilerOpts
+    }
+
+    jvmArguments = [
+            '-Dfile.encoding=UTF-8',
+            '-Djava.awt.headless=true',
+            '-Duser.language=en',
+            '-Duser.region=en',
+            '-Xmx512m'
+    ]
+
+    additionalCompilerOptions = commonCompilerOpts
+
+    resourceDirs = ['src/main/resources']
+    srcDirs = ['src']
+    testDirs = ['src/test']
+    output = 'Firewall'
+
+    dependencies {
+//        flexSDK group: 'org.apache', name: 'apache-flex-sdk', version: '4.12.0', ext: 'zip'
+//        airSDK group: 'com.adobe', name: 'AdobeAIRSDK', version: sdkVersion, ext: 'zip'
+
+        test  group: 'org.hamcrest',   name: 'hamcrest-as3',  version: hamcrest_as3_version,    ext: 'swc'
+        test files(rootProject.file('testlib/flexUnitTasks-4.1.0-8.jar').absolutePath,
+                rootProject.file('testlib/flexunit-4.1.0-8-flex_4.1.0.16076.swc').absolutePath,
+                rootProject.file('testlib/flexunit-cilistener-4.1.0-8-4.1.0.16076.swc').absolutePath,
+                rootProject.file('testlib/flexunit-uilistener-4.1.0-8-4.1.0.16076.swc').absolutePath)
+
+        merged rootProject.files('lib/greensock.swc')
+    }
+
+    defaultTasks 'copyresources', 'build'
+}

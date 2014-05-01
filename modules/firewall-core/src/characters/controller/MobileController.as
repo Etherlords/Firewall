@@ -1,17 +1,19 @@
 package characters.controller   
 {
-	import characters.controller.data.MoveData;
-	import characters.model.AnimationModel;
-	import characters.model.mobile.IPositionSetter;
-	import characters.view.ViewController;
-	import display.IActorController;
-	import display.utils.DimensionalMath;
-	
-	import flash.events.EventDispatcher;
-	import flash.geom.Vector3D;
-	import geom.PathMathematic;
-	
-	public class MobileController extends EventDispatcher implements IActorController
+import characters.controller.data.MoveData;
+import characters.utils.AngleMathematic;
+import characters.utils.IPositionSetter;
+import characters.view.ViewController;
+
+import display.IActorController;
+import display.utils.DimensionalMath;
+
+import flash.events.EventDispatcher;
+import flash.geom.Vector3D;
+
+import geom.PathMathematic;
+
+public class MobileController extends EventDispatcher implements IActorController
 	{
 		public static const IDENT:String = 'MobileController';
 		
@@ -107,7 +109,7 @@ package characters.controller
 		}
 		
 		public var ignoreUpdate:Boolean;
-		public function update(dt:Number):void
+		public function update(worldStep:WorldStep):void
 		{
 			if (ignoreUpdate)
 				return;
@@ -146,7 +148,8 @@ package characters.controller
 		
 		public function placeOnPosition():void
 		{
-			yAngle = positionSetter.applyPosition(_viewController, position);
+            //fixme uncoment or delete
+//			yAngle = positionSetter.applyPosition(_viewController, position);
 			
 			if (yAngle == currentAngle)
 				return;

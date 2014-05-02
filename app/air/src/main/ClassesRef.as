@@ -2,9 +2,9 @@ package
 {
 	import core.external.io.DesktopFileLoader;
 	import core.fileSystem.Directory;
-	import core.fileSystem.DirectoryScaner;
-	import core.external.LocalFileSystem;
-	import core.external.VirtualDirectoryScaner;
+	import core.fileSystem.external.DirectoryScaner;
+	import core.fileSystem.external.LocalFileSystem;
+	import core.fileSystem.external.VirtualDirectoryScaner;
 	import core.services.FileDecodeService;
 	import core.services.FileLoadingService;
 	import display.ui.DisplayManager;

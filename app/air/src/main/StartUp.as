@@ -2,7 +2,7 @@ package
 {
 	import core.fileSystem.Directory;
 	import core.fileSystem.FsFile;
-	import core.external.LocalFileSystem;
+	import core.fileSystem.external.LocalFileSystem;
 	import flash.display.BitmapData;
 	import flash.display.CapsStyle;
 	import flash.display.Sprite;

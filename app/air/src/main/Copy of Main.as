@@ -24,7 +24,7 @@ package
 	import com.greensock.TweenMax;
 	import core.collections.SimpleMap;
 	import core.fileSystem.Directory;
-	import core.fileSystem.DirectoryScaner;
+	import core.fileSystem.external.DirectoryScaner;
 	import core.ioc.Context;
 	import core.utils.dump.dumpByteArray;
 	import display.SceneController;

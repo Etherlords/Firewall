@@ -1,5 +1,6 @@
 package  
 {
+
 	import core.external.io.DesktopFileLoader;
 	import core.fileSystem.Directory;
 	import core.fileSystem.external.DirectoryScaner;
@@ -14,16 +15,17 @@ package
 	import gameui.mainmenu.MainMenuScene;
 	import gameui.preloadScreen.PreloaderScene;
 	import gameui.ScenesController;
-	import geom.PathMathematic;
-	
-	public class ClassesRef 
+
+import geom.PathMathematic;
+
+public class ClassesRef
 	{
 		public static var textContext:TestContext;
 		
-		public static var _Directory:Directory;
-		public static var _DirectoryScaner1:DirectoryScaner;
-		public static var _DirectoryScaner:VirtualDirectoryScaner;
-		public static var _LocalFyleSystem:LocalFileSystem;
+		public static var directory:Directory;
+		public static var directoryScaner:DirectoryScaner;
+		public static var virtualDirectoryScaner:VirtualDirectoryScaner;
+		public static var localFileSystem:LocalFileSystem;
 		
 		public static var desktopFileLoader:DesktopFileLoader;
 		
@@ -34,9 +36,9 @@ package
 		
 		public static var _GameScene:GameScene;
 		
-		public static var _WorlTime:WorldTimeController
-		public static var _PathMath:PathMathematic;
-		
+		public static var _WorlTime:WorldTimeController;
+		public static var pathMathematic:PathMathematic;
+
 		public static var preloaderScene:PreloaderScene;
 		public static var autorisationScene:AutorisationScene;
 		public static var mainMenuScene:MainMenuScene;

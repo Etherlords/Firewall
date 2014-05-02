@@ -5,14 +5,14 @@
 	
 	<bean id="directoryRoot" class="core.fileSystem.Directory"/>
 	
-	<bean id="directoryScaner" class="core.fileSystem.VirtualDirectoryScaner" init-method="scan">
+	<bean id="directoryScaner" class="core.fileSystem.external.VirtualDirectoryScaner" init-method="scan">
 		<property name="directoryRoot" ref="directoryRoot"/>
 		<property name="path" value="fs.fs"/>
 		<scope value="directoryScaner"/>
 		<scope value="vfs"/>
 	</bean>
 	
-	<bean id="vfs" class="core.fileSystem.LocalFileSystem" init-method="test">
+	<bean id="vfs" class="core.fileSystem.external.LocalFileSystem" init-method="test">
 		<property name="directoriesList" ref="directoryRoot"/>
 		<property name="loadingService" ref="fileLoadingService"/>
 		<describeEvent scopeName="directoryScaner" type="complete" handler="onScanComplete" />

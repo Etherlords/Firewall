@@ -1,15 +1,3 @@
-[submodule "modules/share-core"]
-	path = modules/share-core
-	url = https://github.com/Etherlords/share-core.git
-[submodule "modules/share-utils"]
-	path = modules/share-utils
-	url = https://github.com/Etherlords/share-utils.git
-[submodule "modules/share-desktop"]
-	path = modules/share-desktop
-	url = https://github.com/Etherlords/share-desktop.git
-[submodule "modules/share-ioc"]
-	path = modules/share-ioc
-	url = https://github.com/Etherlords/share-ioc.git
 [submodule "modules/away3d-core-fp11"]
 	path = modules/away3d-core-fp11
 	url = https://github.com/gNikro/away3d-core-fp11.git
@@ -18,3 +6,19 @@
 	path = buildSrc/gradlefx
 	url = https://github.com/chaos-adept/GradleFx.git
 	branch = feature-asc2
+[submodule "modules/share-core"]
+	path = modules/share-core
+	url = https://github.com/Etherlords/share-core.git
+	branch = master
+[submodule "modules/share-utils"]
+	path = modules/share-utils
+	url = https://github.com/Etherlords/share-utils.git
+	branch = master
+[submodule "modules/share-desktop"]
+	path = modules/share-desktop
+	url = https://github.com/Etherlords/share-desktop.git
+	branch = master
+[submodule "modules/share-ioc"]
+	path = modules/share-ioc
+	url = https://github.com/Etherlords/share-ioc.git
+	branch = master

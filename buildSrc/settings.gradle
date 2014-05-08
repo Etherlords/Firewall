@@ -1,1 +1,7 @@
-include 'gradlefx'
+
+ def rootD = getRootDir()
+ def rootP = getRootProject()
+ 
+ createProjectDescriptor(rootP, "gradlefx", file("${rootD}/../../gradlefx"))
+	
+

@@ -1,4 +1,0 @@
-[submodule "buildSrc/gradlefx"]
-	path = buildSrc/gradlefx
-	url = https://github.com/chaos-adept/GradleFx.git
-	branch = feature-asc2

@@ -1,16 +1,17 @@
 
 def rootD = getRootDir()
 def rootP = getRootProject()
+def baseDir = file('..');
 
 //Applications
 createProjectDescriptor(rootP, "air", file("${rootD}/app/air"))
 
 //Modules
 createProjectDescriptor(rootP, "firewall-core", file("${rootD}/modules/firewall-core"))
-createProjectDescriptor(rootP, "away3d-core", file("${rootD}/modules/away3d-core-fp11"))
-createProjectDescriptor(rootP, "share-core", file("${rootD}/modules/share-core"))
-createProjectDescriptor(rootP, "share-desktop", file("${rootD}/modules/share-desktop"))
-createProjectDescriptor(rootP, "share-ioc", file("${rootD}/modules/share-ioc"))
-createProjectDescriptor(rootP, "share-utils", file("${rootD}/modules/share-utils"))
+createProjectDescriptor(rootP, "away3d-core", file("${baseDir}/away3d-core-fp11"))
+createProjectDescriptor(rootP, "share-core", file("${baseDir}/share-core"))
+createProjectDescriptor(rootP, "share-desktop", file("${baseDir}/share-desktop"))
+createProjectDescriptor(rootP, "share-ioc", file("${baseDir}/share-ioc"))
+createProjectDescriptor(rootP, "share-utils", file("${baseDir}/share-utils"))
 
 //Tools

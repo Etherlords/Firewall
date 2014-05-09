@@ -49,18 +49,20 @@ subprojects {
             '-incremental=true',
             '-tools-locale=en',
             '+configname=air',
-            "-target-player=${sdkVersion}",
-            '-load-config+=air-config.xml',
             '-keep-as3-metadata+=Inject',
             "-define=CONFIG::debug,true"
     ]
 
-    flexUnit {
-        additionalCompilerOptions = commonCompilerOpts
-    }
-
     additionalCompilerOptions = commonCompilerOpts
+	//additionalCompilerOptions << "-target-player=${sdkVersion}";
+	additionalCompilerOptions << '-load-config+=air-config.xml';
 
+    flexUnit {
+        //haltonfailure 'true'
+        player 'air'
+        command "$flexHome/bin/adl.exe" //fixme should be multiplatform
+    }	
+	
     resourceDirs = ['src/main/resources']
     srcDirs = ['src']
     testDirs = ['src/test']

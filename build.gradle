@@ -50,7 +50,7 @@ subprojects {
             '-tools-locale=en',
             '+configname=air',
             "-target-player=${sdkVersion}",
-//            '-load-config+=air-config.xml',
+            '-load-config+=air-config.xml',
             '-keep-as3-metadata+=Inject',
             "-define=CONFIG::debug,true"
     ]

@@ -55,7 +55,7 @@ subprojects {
 
     additionalCompilerOptions = commonCompilerOpts
 	additionalCompilerOptions << "-target-player=${sdkVersion}";
-//	additionalCompilerOptions << '-load-config+=air-config.xml';
+	additionalCompilerOptions << '-load-config+=air-config.xml';
 
     flexUnit {
         //haltonfailure 'true'

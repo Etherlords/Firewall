@@ -4,9 +4,9 @@ subprojects {
     apply plugin: 'maven'
 
     repositories {
-        add(new org.apache.ivy.plugins.resolver.URLResolver()) {
+        ivy {
             name = 'Apache'
-            addArtifactPattern 'http://apache.cu.be/flex/[revision]/binaries/[module]-[revision]-bin.[ext]'
+            artifactPattern 'http://apache.cu.be/flex/[revision]/binaries/[module]-[revision]-bin.[ext]'
         }
         maven {
             name 'glassfish-releases'
@@ -54,8 +54,8 @@ subprojects {
     ]
 
     additionalCompilerOptions = commonCompilerOpts
-	//additionalCompilerOptions << "-target-player=${sdkVersion}";
-	additionalCompilerOptions << '-load-config+=air-config.xml';
+	additionalCompilerOptions << "-target-player=${sdkVersion}";
+//	additionalCompilerOptions << '-load-config+=air-config.xml';
 
     flexUnit {
         //haltonfailure 'true'
